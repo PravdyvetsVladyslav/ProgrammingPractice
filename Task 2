@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+// Функція для знаходження НСД (найбільший спільний дільник) двох чисел
+int findGCD(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+// Функція для знаходження НСК (найменше спільне кратне) двох чисел
+int findLCM(int a, int b) {
+    return (a * b) / findGCD(a, b);
+}
+
+// Функція для знаходження НСК різних чисел
+int findLCMofArray(int arr[], int n) {
+    int lcm = arr[0];
+    for (int i = 1; i < n; i++) {
+        lcm = findLCM(lcm, arr[i]);
+    }
+    return lcm;
+}
+
+int main() {
+    int n;
+    printf("Введіть кількість чисел: ");
+    scanf("%d", &n);
+
+    int arr[20];  // максимальна кількість чисел - 20
+    printf("Введіть числа: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int lcm = findLCMofArray(arr, n);
+    printf("Найменше спільне кратне: %d", lcm);
+
+    return 0;
+}
