@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char input[10000];
+    int t1, t2, t3;
+    double total_time;
+
+	printf("Enter three values:\n\n");
+
+    // Read input data as a single line
+    fgets(input, sizeof(input), stdin);
+
+    // Split the string into numbers
+    sscanf(input, "%d %d %d", &t1, &t2, &t3);
+
+    // Calculate the total time
+    total_time = 1.0 / ((1.0 / t1 + 1.0 / t2 + 1.0 / t3));
+
+    // Print the result with rounding to 2 decimal places
+    printf("\nThe pie is eaten in %.2lf hours.\n", total_time);
+
+    return 0;
+}
