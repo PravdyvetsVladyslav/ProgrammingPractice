@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    // Координати центрів та радіусів кіл
+    float x1, y1, r1; 
+    float x2, y2, r2;
+
+    scanf("%f %f %f %f %f %f", &x1, &y1, &r1, &x2, &y2, &r2); // Введення координат та радіусів з клавіатури
+
+    // Визначення відстані між центрами колів
+    float distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+
+    // Перевірка умов перетину колів
+    if (distance == 0) {
+        // Кола співпадають
+        if (r1 == r2) {
+            printf("-1");
+        } else {
+            printf("0");
+        }
+    } else {
+        // Кола не співпадають
+        if (distance < fabs(r1 - r2) || distance > r1 + r2) {
+            printf("0");
+        } else if (distance > fabs(r1 - r2) && distance < r1 + r2) {
+            printf("2");
+        } else {
+            printf("1");
+        }
+    }
+
+    return 0;
+}
