@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+
+// Функція для обміну значеннями
+void swap(char *x, char *y) {
+    char temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+// Функція для перевірки, чи є букви унікальними
+bool areCharactersUnique(char *word, int start, int end) {
+    int i;
+    for (i = start; i < end; i++) {
+        if (word[i] == word[end]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Функція для генерації анаграм та підрахунку їх кількості
+int generateAnagrams(char *word, int start, int end) {
+    static int count = 0; // Змінна для підрахунку кількості анаграм
+    int i;
+
+    if (start == end && areCharactersUnique(word, 0, end)) {
+        count++;
+    } else {
+        for (i = start; i <= end; i++) {
+            swap((word + start), (word + i)); // Міняємо місцями дві букви
+            generateAnagrams(word, start + 1, end); // Рекурсивний виклик для наступної позиції
+            swap((word + start), (word + i)); // Відновлюємо початковий порядок букв
+        }
+    }
+
+    return count;
+}
+
+int main() {
+    char word[15];
+
+    printf("Введіть слово (максимум 14 букв): ");
+    scanf("%s", word); // Введення слова з клавіатури
+
+    int length = strlen(word);
+
+    if (length > 14) {
+        printf("Кількість букв перевищує максимально допустиме значення.\n");
+        return 1; // Помилка: кількість букв перевищує максимальний ліміт
+    }
+
+    int count = generateAnagrams(word, 0, length - 1);
+    printf("Кількість унікальних анаграм: %d\n", count);
+
+    return 0;
+}
